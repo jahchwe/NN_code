@@ -1,25 +1,25 @@
-# import pandas as pd
-# import numpy as np
-# import networkx as nx
-# import matplotlib.pyplot as plt
+import numpy as np
+from numpy import genfromtxt
+import networkx as nx
+import matplotlib.pyplot as plt
 
-import csv
 
-trait_correlations = []
-r = csv.reader(open('TLr1_subjectiveDM.csv', newline=''), delimiter=',')
-for row in r:
-  trait_correlations.append(row)
+dt = [('len', float)]
 
-# get all the traits
-nodes = trait_correlations[0]
-nodes = nodes[1:len(nodes) -1]
+labels = ['aggressive','caring','confident','dominant','emotionallystable','intelligent','mean','responsible','sociable','trustworthy','unhappy','weird']
+my_data = genfromtxt('TLr1_subjectiveDM.csv', delimiter=',', skip_header=1)
+my_data = np.delete(my_data, 0, 1)
+my_data = my_data.view(dt)
 
-print(nodes)
+G = nx.from_numpy_matrix(my_data)
 
-# G = nx.Graph()
-# G.add_nodes_from(traits)
-# # (2, 3, {'weight': 3.1415})
 
-# nx.draw(G, with_labels="true")
-# plt.savefig("test.png") # save as png
-# plt.show() # display
+
+G = nx.relabel_nodes(G, dict(zip(range(len(G.nodes())),labels)))
+
+G = nx.drawing.nx_agraph.to_agraph(G)
+
+G.node_attr.update(color="red", style="filled")
+G.edge_attr.update(color="blue", width="2.0")
+
+G.draw('out.png', format='png', prog='neato')
