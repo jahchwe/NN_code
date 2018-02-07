@@ -1,51 +1,56 @@
-# import pandas as pd
+import pandas as pd
 import numpy as np
 from numpy import genfromtxt
 import networkx as nx
-# import matplotlib.pyplot as plt
-# import pygraphviz as pg
+from networkx.algorithms import community
+import matplotlib.pyplot as plt
+from sklearn import cluster
+
+
 
 labels = ['aggressive','caring','confident','dominant','emotionally stable','intelligent','mean','responsible','sociable','trustworthy','unhappy','weird']
-my_data = genfromtxt('TLr1_subjectiveDM.csv', delimiter=',', skip_header=1)
-my_data = np.delete(my_data, 0, 1)
+data = genfromtxt('TLr1_subjectiveDM.csv', delimiter=',', skip_header=1)
+my_data = np.delete(data, 0, 1)
 
-# get sum of all values for later
-sum=0;
-for row in range (len(my_data)):
-    for col in range(len(my_data[0])):
-      sum += my_data[row][col]
+# for row in range (len(my_data)):
+#     for col in range(len(my_data[0])):
+#       my_data[row][col] *= 55
 
-sum /= 15
 
-# dt = [('len',  float)]
+dt = [('len',  float)]
 # create values for length of nodes and pen width
-dt = np.dtype({'names': ['len', 'penwidth'], 'formats':[float, float]})
+
+# dt = np.dtype({'names': ['len', 'weight'], 'formats':[float, float]})
 my_data = np.array(my_data, dt)
 
-# now reassign the values of penwidth inversely proportional to length values
+G = nx.from_numpy_matrix(my_data)
 
-for row in range (len(my_data)):
-    for col in range(len(my_data[0])):
-      new_val = np.divide(sum,my_data[row][col][1])
-      my_data[row][col][1] = new_val
-print(my_data)
+G = nx.relabel_nodes(G, dict(zip(range(len(G.nodes())),labels)))
 
-# G = nx.from_numpy_matrix(my_data)
+# print(nx.clustering(G, None, weight='weight'))
 
-# G = nx.relabel_nodes(G, dict(zip(range(len(G.nodes())),labels)))
-
-# G = nx.drawing.nx_agraph.to_agraph(G)
-
+G = nx.drawing.nx_agraph.to_agraph(G)
+# generate dotfile
 # G.write('dotfiles/dotGenerated.dot')
-# G.append('dotfiles/dotGenerated.dot')
 
-# G.node_attr.update(color="black")
-# G.node_attr.update(style="filled")
-# G.edge_attr.update(color="gray", width="0.3")
+estimator = KMeans(n_clusters=3)
+estimator.fit(my_data)
+
+cluster_grouping = {i: np.where(estimator.labels_ == i)[0] for i in range(estimator.n_clusters)}
+
+print(cluster_grouping)
 
 
-# G.draw('graph.png', format='png', prog='neato')
 
-# B = pg.AGraph('simple.dot') # create a new graph from file
-# B.layout() # layout with default (neato)
-# B.draw('simple.png')
+# # get sum of all values for later
+# sum=0;
+
+# for row in range (len(my_data)):
+#     for col in range(len(my_data[0])):
+#       sum += my_data[row][col]
+
+
+# # for row in range (len(my_data)):
+# #     for col in range(len(my_data[0])):
+# #       new_val = np.divide(np.divide(sum,my_data[row][col][1]),30)
+# #       my_data[row][col][1] = new_val
