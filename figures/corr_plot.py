@@ -39,14 +39,14 @@ for row in clustered_corrs:
   clustered_corrs[count] = new_row
   count = count + 1;
 
-# put labels back
-clustered_corrs = reordered_labels + clustered_corrs
-
+print(clustered_corrs)
 cmap = sns.diverging_palette(220, 10, as_cmap=True)
 
 fig, axs = plt.subplots(figsize=(11, 9))
 
-sns.heatmap(clustered_corrs, cmap=cmap)
+sns.heatmap(clustered_corrs, xticklabels = reordered_labels, yticklabels = reordered_labels, cmap=cmap)
+
+plt.xticks(rotation=45)
 
 plt.show()
 
