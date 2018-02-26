@@ -3,19 +3,18 @@ strict graph "" {
     overlap=false outputorder=edgesfirst];
   node [shape="circle" style=filled color="gray" fixedsize=true size=4000 label="" fontname=Arial fontsize=12 labeljust="r"];
   edge [style="dashed" color="#e2e2e2" penwidth=2.2]
-  aggressive [fillcolor="#9ec3ff" xlabel="aggressive"];
-  caring [fillcolor="#afff9b" xlabel="caring"];
-  confident [fillcolor="#afff9b" xlabel="confident"];
-  dominant [fillcolor="#fff89b" xlabel="dominant"];
-  "emotionally stable" [fillcolor="#ffa29b" xlabel="emotionally stable"];
-  intelligent [fillcolor="#ff9bc6" xlabel="intelligent"];
-  mean [fillcolor="#d5a5ff" xlabel="mean"];
-  responsible [fillcolor="#d5a5ff" xlabel="responsible"];
-  weird [fillcolor="#a4d0ff" xlabel="weird"];
-  sociable [fillcolor="#a3ffcb" xlabel="sociable"];
-  trustworthy [fillcolor="#ffefa3" xlabel="trustworthy"];
-  unhappy [fillcolor="#ffa3b5" xlabel="unhappy"];
-
+  aggressive [fillcolor="#82b1ff" xlabel="aggressive"];
+  caring [fillcolor="#ffca82" xlabel="caring"];
+  confident [fillcolor="#ffca82" xlabel="confident"];
+  dominant [fillcolor="#82b1ff" xlabel="dominant"];
+  "emotionally stable" [fillcolor="#ffca82" xlabel="emotionally stable"];
+  intelligent [fillcolor="#ffca82" xlabel="intelligent"];
+  mean [fillcolor="#82b1ff" xlabel="mean"];
+  responsible [fillcolor="#ffca82" xlabel="responsible"];
+  weird [fillcolor="#ffa5ee" xlabel="weird"];
+  sociable [fillcolor="#ffca82" xlabel="sociable"];
+  trustworthy [fillcolor="#ffca82" xlabel="trustworthy"];
+  unhappy [fillcolor="#ffa5ee" xlabel="unhappy"];
 
   aggressive -- caring   [len=5.38];
   aggressive -- confident  [len=3.35];
