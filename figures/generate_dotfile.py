@@ -39,3 +39,9 @@ for x in range (len(cluster_grouping)):
     named_clusters.append(labels[y])
 
 print(named_clusters)
+
+# TODO: write directly to dotfile
+# - add xlabel
+# - color node by cluster
+# - remove self-referencing edges
+# - color edges between cluster ndoes
